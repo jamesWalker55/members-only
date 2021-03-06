@@ -1,6 +1,15 @@
-<article class="post-item">
-  <h1><%= post.title %></h1>
-  <span>Posted at <%= post.created_at.strftime "%Y-%m-%d %l:%M%P" %></span>
-  <span>Updated at <%= post.updated_at.strftime "%Y-%m-%d %l:%M%P" %></span>
+<article class="post-list-item">
+  <h1>
+    <a href="<%= post_path(post.id) %>">
+      <%= post.title %>
+    </a>
+  </h1>
+  <p><span>By <%= post.member.name %></span></p>
   <p><%= post.content %></p>
+  <div class="post-metadata">
+    <p>Posted at <%= post.created_at.strftime "%Y-%m-%d %l:%M%P" %></p>
+    <% if post.created_at != post.updated_at %>
+      <p>Updated at <%= post.updated_at.strftime "%Y-%m-%d %l:%M%P" %></p>
+    <% end %>
+  </div>
 </article>
