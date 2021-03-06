@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
   before_action :authenticate_member!, except: %i[index show]
+  before_action :authorize_member!, except: %i[index show create new]
 
   # GET /posts or /posts.json
   def index
@@ -66,5 +67,12 @@ class PostsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:title, :content)
+    end
+
+    # block actions if member is not owner of post
+    def authorize_member!
+      if @post.member.nil? || @post.member.id != current_member.id
+        redirect_to post_path(@post), alert: "You are not the author of the post!"
+      end
     end
 end
