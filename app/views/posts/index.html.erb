@@ -1,6 +1,6 @@
 <div class="columns">
   <div id="post-list" class="column is-two-thirds is-offset-2">
-    <% @posts.each do |post| %>
+    <% @posts.order("updated_at DESC").each do |post| %>
       <%= render "elements/post_item", post: post %>
     <% end %>
   </div>

@@ -1,5 +1,11 @@
-<h1>New Post</h1>
+<div class="columns">
+  <div id="post-list" class="column is-10 is-offset-1">
+    <div class="box">
+      <h1 class="is-size-4">New Post</h1>
 
-<%= render 'form', post: @post %>
+      <br>
 
-<%= link_to 'Back', posts_path %>
+      <%= render 'form', post: @post %>
+    </div>
+  </div>
+</div>

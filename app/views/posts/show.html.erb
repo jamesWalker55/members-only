@@ -1,8 +1,7 @@
-<%= render "elements/post_page", post: @post %>
-
-<% if member_signed_in? && @post.member && current_member.id == @post.member.id %>
-  <%= link_to 'Edit', edit_post_path(@post) %> |
-  <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' } %>
-  <br>
-<% end %>
-<%= link_to 'Back', posts_path %>
+<div class="columns">
+  <div id="post-list" class="column is-10 is-offset-1">
+    <div class="box">
+      <%= render "elements/post_page", post: @post %>
+    </div>
+  </div>
+</div>

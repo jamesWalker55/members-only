@@ -1,17 +1,53 @@
-<main class="article">
-  <h1><%= post.title %></h1>
-  <% if member_signed_in? %>
-    <% if post.member %>
-      <p>By <%= post.member.name %></p>
-    <% else %>
-      <p>Author deleted</p>
-    <% end %>
+<% # get author
+author = if member_signed_in?
+  if post.member
+    post.member.name
+  else
+    "[Author deleted]"
+  end
+end %>
+
+<h2 class="is-size-5 has-text-black has-text-weight-light">
+  <%= post.title %>
+</h2>
+
+<% if member_signed_in? %>
+  <p class="has-text-weight-light"><%= author %></p>
+<% end %>
+
+<div class="content mt-2 mb-3">
+  <%= post.content %>
+</div>
+
+<div class="post-metadata">
+  <p class="is-italic has-text-weight-light is-size-7">Posted at <%= post.created_at.strftime "%Y-%m-%d %l:%M%P" %></p>
+  <% if post.created_at != post.updated_at %>
+    <p class="is-italic has-text-weight-light is-size-7">Updated at <%= post.updated_at.strftime "%Y-%m-%d %l:%M%P" %></p>
   <% end %>
-  <p><%= post.content %></p>
-  <div class="post-metadata">
-    <p>Posted at <%= post.created_at.strftime "%Y-%m-%d %l:%M%P" %></p>
-    <% if post.created_at != post.updated_at %>
-      <p>Updated at <%= post.updated_at.strftime "%Y-%m-%d %l:%M%P" %></p>
-    <% end %>
-  </div>
-</main>
+</div>
+
+<br>
+
+<ul>
+  <% if member_signed_in? && post.member && post.member == current_member %>
+    <li>
+      <a href="<%= edit_post_path(post) %>">
+        <%= render "elements/icon", icon: "pencil-fill", color: :cornflowerblue %>
+        Edit post
+      </a>
+    </li>
+    <li>
+      <a href="<%= post_path(post) %>" data-confirm="Are you sure?" rel="nofollow" data-method="delete">
+        <%= render "elements/icon", icon: "trash-fill", color: :cornflowerblue %>
+        Destroy post
+      </a>
+    </li>
+  <% end %>
+  <li>
+    <a href="<%= posts_path %>">
+      <%= render "elements/icon", icon: "arrow-return-left", color: :cornflowerblue %>
+      Back
+    </a>
+  </li>
+</ul>
+
