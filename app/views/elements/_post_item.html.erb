@@ -4,7 +4,11 @@
       <%= post.title %>
     </a>
   </h1>
-  <p><span>By <%= post.member.name %></span></p>
+  <% if post.member %>
+    <p>By <%= post.member.name %></p>
+  <% else %>
+    <p>Author deleted</p>
+  <% end %>
   <p><%= post.content %></p>
   <div class="post-metadata">
     <p>Posted at <%= post.created_at.strftime "%Y-%m-%d %l:%M%P" %></p>
