@@ -1,0 +1,15 @@
+<main class="article">
+  <h1><%= post.title %></h1>
+  <% if post.member %>
+    <p>By <%= post.member.name %></p>
+  <% else %>
+    <p>Author deleted</p>
+  <% end %>
+  <p><%= post.content %></p>
+  <div class="post-metadata">
+    <p>Posted at <%= post.created_at.strftime "%Y-%m-%d %l:%M%P" %></p>
+    <% if post.created_at != post.updated_at %>
+      <p>Updated at <%= post.updated_at.strftime "%Y-%m-%d %l:%M%P" %></p>
+    <% end %>
+  </div>
+</main>
