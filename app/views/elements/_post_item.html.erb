@@ -8,24 +8,35 @@ author = if member_signed_in?
 end %>
 
 <div class="post-item box">
-  <div class="is-flex is-size-5 is-justify-content-space-between">
-    <h2 class="is-clipped">
+  <% if member_signed_in? %>
+
+    <div class="is-flex is-size-5 is-justify-content-space-between">
+
+      <h2>
+        <%= link_to post.title, post_path(post), class: "has-text-black has-text-weight-light" %>
+      </h2>
+
+      <% if post.member && post.member == current_member %>
+        <span class="is-flex-shrink-0">
+          <a href="<%= edit_post_path(post) %>">
+            <%= render "elements/icon", icon: "pencil-fill", color: :cornflowerblue %>
+          </a>
+          <a href="<%= post_path(post) %>" data-confirm="Are you sure?" rel="nofollow" data-method="delete">
+            <%= render "elements/icon", icon: "trash-fill", color: :cornflowerblue %>
+          </a>
+        </span>
+      <% end %>
+
+    </div>
+
+    <p class="has-text-weight-light"><%= author %></p>
+
+  <% else %>
+
+    <h2 class="is-size-5">
       <%= link_to post.title, post_path(post), class: "has-text-black has-text-weight-light" %>
     </h2>
-    <% if member_signed_in? && post.member && post.member == current_member %>
-      <span class="is-flex-shrink-0">
-        <a href="<%= edit_post_path(post) %>">
-          <%= render "elements/icon", icon: "pencil-fill", color: :cornflowerblue %>
-        </a>
-        <a href="<%= post_path(post) %>" data-confirm="Are you sure?" rel="nofollow" data-method="delete">
-          <%= render "elements/icon", icon: "trash-fill", color: :cornflowerblue %>
-        </a>
-      </span>
-    <% end %>
-  </div>
-
-  <% if member_signed_in? %>
-    <p class="has-text-weight-light"><%= author %></p>
+  
   <% end %>
 
   <div class="content mt-2 mb-3">
