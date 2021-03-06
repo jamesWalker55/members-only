@@ -1,0 +1,6 @@
+<%#= render "elements/icon", icon: :app %>
+
+<%# default variables %>
+<% size = "1em" if local_assigns[:size].nil? %>
+<% color = "#212529" if local_assigns[:color].nil? %>
+<i class="bi-<%= icon %>" style="font-size: <%= size %>; color: <%= color %>;"></i>
