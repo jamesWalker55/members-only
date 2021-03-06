@@ -4,10 +4,12 @@
       <%= post.title %>
     </a>
   </h1>
-  <% if post.member %>
-    <p>By <%= post.member.name %></p>
-  <% else %>
-    <p>Author deleted</p>
+  <% if member_signed_in? %>
+    <% if post.member %>
+      <p>By <%= post.member.name %></p>
+    <% else %>
+      <p>Author deleted</p>
+    <% end %>
   <% end %>
   <p><%= post.content %></p>
   <div class="post-metadata">
